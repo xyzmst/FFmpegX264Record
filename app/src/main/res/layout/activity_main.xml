@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/record_camera_led"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="闪光灯"
+            />
+
+        <CheckBox
+            android:id="@+id/record_camera_switcher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="切换摄像头"
+            />
+
+        <Button
+            android:id="@+id/record_controller"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="拍摄"
+            />
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/camera_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/record_progress">
+
+
+        <SurfaceView
+            android:id="@+id/record_preview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <ImageView
+            android:id="@+id/record_focusing"
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            android:background="#ffffff"
+            android:scaleType="fitXY"
+            android:src="@mipmap/video_focus"
+            android:visibility="gone"
+            />
+
+
+    </RelativeLayout>
+
+
+</LinearLayout>
