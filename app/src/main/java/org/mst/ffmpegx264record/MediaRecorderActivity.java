@@ -153,6 +153,7 @@ public class MediaRecorderActivity extends Activity {
 //                VCamera.getVideoCachePath() + key);
         mMediaRecorder.setSurfaceHolder(mSurfaceView.getHolder());
         mMediaRecorder.prepare();
+
     }
 
     @OnClick(R.id.record_camera_switcher)
