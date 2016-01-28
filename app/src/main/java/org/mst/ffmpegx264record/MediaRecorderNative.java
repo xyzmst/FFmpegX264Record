@@ -14,6 +14,7 @@ public class MediaRecorderNative extends MediaRecorderBase implements OnErrorLis
     private static final String VIDEO_SUFFIX = ".ts";
 
     public MediaRecorderNative() {
+
     }
 
     public MediaPart startRecord() {
@@ -42,9 +43,33 @@ public class MediaRecorderNative extends MediaRecorderBase implements OnErrorLis
     }
 
     public void onPreviewFrame(byte[] data, Camera camera) {
-//        if(this.mRecording) {
-//            UtilityAdapter.RenderDataYuv(data);
-//        }
+        //        if(this.mRecording) {
+        //            UtilityAdapter.RenderDataYuv(data);
+        //        }
+
+        int width = camera.getParameters().getPreviewSize().width;
+        int height = camera.getParameters().getPreviewSize().height;
+        int length = width * height * 3 / 2;
+        byte[] dataYUV420P = new byte[width * height * 3 / 2];
+        // 每一帧的大小
+        int framesize = width * height;
+        int i = 0, j = 0;
+        // 这块没问题--Y
+        for (i = 0; i < framesize; i++) {
+            dataYUV420P[i] = data[i];
+        }
+        // U
+        i = 0;
+        for (j = 0; j < framesize / 2; j += 2) {
+            dataYUV420P[i + framesize * 5 / 4] = data[j + framesize];
+            i++;
+        }
+        i = 0;
+        for (j = 1; j < framesize / 2; j += 2) {
+            dataYUV420P[i + framesize] = data[j + framesize];
+            i++;
+        }
+
 
         super.onPreviewFrame(data, camera);
     }
@@ -61,7 +86,7 @@ public class MediaRecorderNative extends MediaRecorderBase implements OnErrorLis
 
     public void onError(MediaRecorder mr, int what, int extra) {
         try {
-            if(mr != null) {
+            if (mr != null) {
                 mr.reset();
             }
         } catch (IllegalStateException var5) {
@@ -70,7 +95,7 @@ public class MediaRecorderNative extends MediaRecorderBase implements OnErrorLis
             Log.w("Yixia", "stopRecord", var6);
         }
 
-        if(this.mOnErrorListener != null) {
+        if (this.mOnErrorListener != null) {
             this.mOnErrorListener.onVideoError(what, extra);
         }
 
